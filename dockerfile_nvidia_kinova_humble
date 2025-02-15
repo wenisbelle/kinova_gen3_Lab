@@ -34,30 +34,43 @@ RUN apt update \
 RUN apt-get install -y python3-rosdep \
  && apt-get install -y python3-colcon-common-extensions
 
-
-
 RUN apt-get install -y git
-
-
 
 # Kinova Gen3 packages
 RUN apt-get update
-
 RUN apt-get install -y ros-humble-kortex-bringup
-
 RUN apt-get install -y ros-humble-kinova-gen3-7dof-robotiq-2f-85-moveit-config
-
 RUN apt-get install -y ros-humble-rmw-cyclonedds-cpp
 
 RUN mkdir -p /Kinova_gen3/src
 COPY ./ /Kinova_gen3/src 
 WORKDIR /Kinova_gen3
 
-RUN source /opt/ros/humble/setup.bash  \
-    && colcon build \
-    && source install/setup.bash
+# Vision Modules
+
+RUN apt-get install -y gstreamer1.0-tools \
+                       gstreamer1.0-libav \
+                       libgstreamer1.0-dev \
+                       libgstreamer-plugins-base1.0-dev \
+                       libgstreamer-plugins-good1.0-dev \
+                       gstreamer1.0-plugins-good \
+                        gstreamer1.0-plugins-base
+
+RUN cd /Kinova_gen3/src && \
+    git clone https://github.com/Kinovarobotics/ros2_kortex_vision.git
+
+RUN apt-get -y install ros-humble-camera-calibration-parsers && \
+    apt-get -y install ros-humble-camera-info-manager && \
+    apt-get -y install ros-humble-image-transport
+    
+# Initialize rosdep and install dependencies
+RUN rosdep init && \
+    rosdep update && \
+    rosdep install --from-paths src --ignore-src -r -y
+
+RUN /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build && source install/setup.bash"
  
-RUN echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" >> ~/.bashrc \
+RUN echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" >> ~/.bashrc && \
     echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc && \
     echo "source /Kinova_gen3/install/setup.bash" >> ~/.bashrc
 
