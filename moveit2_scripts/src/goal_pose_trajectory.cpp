@@ -76,11 +76,14 @@ public:
 
     // setup the goal pose target
     RCLCPP_INFO(LOGGER, "Preparing Goal Pose Trajectory...");
-    setup_goal_pose_target(+0.343, +0.132, +0.284, -1.000, +0.000, +0.000,
+    setup_goal_pose_target(+0.643, +0.232, +0.384, 1.000, +0.000, +0.000,
                            +0.000);
     // plan and execute the trajectory
     RCLCPP_INFO(LOGGER, "Planning Goal Pose Trajectory...");
     plan_trajectory_kinematics();
+
+    RCLCPP_INFO(LOGGER, "Executing Goal Pose Trajectory...");
+    execute_trajectory_kinematics();
 
     RCLCPP_INFO(LOGGER, "Goal Pose Trajectory Planning Complete");
   }
@@ -126,7 +129,8 @@ private:
     target_pose_robot_.orientation.y = quat_y;
     target_pose_robot_.orientation.z = quat_z;
     target_pose_robot_.orientation.w = quat_w;
-    move_group_robot_->setPoseTarget(target_pose_robot_);
+    //move_group_robot_->setPoseTarget(target_pose_robot_);
+    move_group_robot_->setJointValueTarget(target_pose_robot_, "end_effector_link");
   }
 
   void plan_trajectory_kinematics() {
@@ -134,6 +138,16 @@ private:
     plan_success_robot_ =
         (move_group_robot_->plan(kinematics_trajectory_plan_) ==
          moveit::core::MoveItErrorCode::SUCCESS);
+  }
+
+  void execute_trajectory_kinematics() {
+    // execute the planned trajectory to target using kinematics
+    if (plan_success_robot_) {
+      move_group_robot_->execute(kinematics_trajectory_plan_);
+      RCLCPP_INFO(LOGGER, "Robot Kinematics Trajectory Success !");
+    } else {
+      RCLCPP_INFO(LOGGER, "Robot Kinematics Trajectory Failed !");
+    }
   }
 
 }; // class GoalPoseTrajectory

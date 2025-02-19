@@ -73,6 +73,3 @@ RUN /bin/bash -c "source /opt/ros/humble/setup.bash && colcon build && source in
 RUN echo "export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp" >> ~/.bashrc && \
     echo "source /opt/ros/humble/setup.bash" >> ~/.bashrc && \
     echo "source /Kinova_gen3/install/setup.bash" >> ~/.bashrc
-
-
-
