@@ -13,7 +13,7 @@ services:
       - DISPLAY
     devices:
       - /dev/dri
-      - /dev/input/js0:/dev/input/js0 ## Add this line to pass through the joystick usign joy_linux package
+    ##  - /dev/input/js0:/dev/input/js0 ## Add this line to pass through the joystick usign joy_linux package
     volumes:
       - /tmp/.X11-unix:/tmp/.X11-unix
       - ./:/Kinova_gen3/src:rw  # Mount the current directory as readable and writable
@@ -28,4 +28,3 @@ services:
     restart: "no"
     network_mode: "host"  # Add this line to use the host network
     command: /bin/bash  # Add this line to start a bash shell
-
