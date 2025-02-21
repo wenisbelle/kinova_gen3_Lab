@@ -29,7 +29,9 @@ RUN apt update \
                         ros-humble-joint-state-publisher \
                         ros-humble-joint-trajectory-controller \
                         ros-humble-velocity-controllers \
-                        ros-humble-rqt-robot-steering
+                        ros-humble-rqt-robot-steering \
+                        ros-humble-ros-testing \
+                        ros-humble-joy-linux
 
 RUN apt-get install -y python3-rosdep \
  && apt-get install -y python3-colcon-common-extensions
