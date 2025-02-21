@@ -24,7 +24,7 @@ services:
             - capabilities: [gpu]
     stdin_open: true
     tty: true
-    restart: no
+    restart: "no"
     network_mode: "host"  # Add this line to use the host network
     command: /bin/bash  # Add this line to start a bash shell
 
