@@ -23,7 +23,9 @@ RUN apt update \
  && apt install -y ros-humble-desktop \
  && apt install -y ros-humble-ros-gz
 
- RUN apt-get install -y ros-humble-ros2-control \
+RUN apt-get update
+
+RUN apt-get install -y ros-humble-ros2-control \
                         ros-humble-ign-ros2-control  \
                         ros-humble-joint-state-broadcaster \
                         ros-humble-joint-state-publisher \
@@ -58,8 +60,8 @@ RUN apt-get install -y gstreamer1.0-tools \
                        gstreamer1.0-plugins-good \
                         gstreamer1.0-plugins-base
 
-RUN cd /Kinova_gen3/src && \
-    git clone https://github.com/Kinovarobotics/ros2_kortex_vision.git
+#RUN cd /Kinova_gen3/src && \
+#    git clone https://github.com/Kinovarobotics/ros2_kortex_vision.git
 
 RUN apt-get -y install ros-humble-camera-calibration-parsers && \
     apt-get -y install ros-humble-camera-info-manager && \

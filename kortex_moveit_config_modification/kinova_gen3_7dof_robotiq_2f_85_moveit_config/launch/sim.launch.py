@@ -47,7 +47,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "vision",
-            default_value="false",
+            default_value="true",
             description="Add vision module to URDF",
         )
     )

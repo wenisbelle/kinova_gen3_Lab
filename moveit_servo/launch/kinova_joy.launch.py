@@ -95,11 +95,6 @@ def generate_launch_description():
         output="screen",
     )
 
-    joy_node = Node(
-        package="joy_linux",
-        executable="joy_linux",
-        output="screen",
-    )
 
     return LaunchDescription(
         [

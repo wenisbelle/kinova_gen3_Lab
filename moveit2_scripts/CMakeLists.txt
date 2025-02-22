@@ -16,6 +16,9 @@ find_package(interactive_markers REQUIRED)
 find_package(geometric_shapes REQUIRED)
 find_package(control_msgs REQUIRED)
 find_package(moveit_msgs REQUIRED)
+find_package(tf2 REQUIRED)
+find_package(tf2_ros REQUIRED)
+find_package(geometry_msgs REQUIRED)
 
 if(BUILD_TESTING)
   find_package(ament_lint_auto REQUIRED)
@@ -81,11 +84,20 @@ ament_target_dependencies(gripper_control
     moveit_ros_planning
     control_msgs)
 
+add_executable(tf2_contact_point src/tf2_contact_point.cpp)
+target_include_directories(tf2_contact_point PUBLIC include)
+ament_target_dependencies(tf2_contact_point
+    geometry_msgs
+    rclcpp
+    tf2
+    tf2_ros)
+    
 install(TARGETS 
     joint_space_trajectory
     goal_pose_trajectory
     double_motion_trajectory
     gripper_control
+    tf2_contact_point
     DESTINATION lib/${PROJECT_NAME}
 )
 
