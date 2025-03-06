@@ -153,6 +153,10 @@ bool convertJoyToCmd(const std::vector<float>& axes, const std::vector<int>& but
   double roll_positive = -1 * buttons[RIGHT_BUMPER];
   double roll_negative = (buttons[LEFT_BUMPER]);
   twist->twist.angular.z = roll_positive + roll_negative;
+  /** \brief // This should update the frame_to_publish_ as needed for changing command frame via controller
+   * @param frame_name Set the command frame to this
+   * @param buttons The vector of discrete controller button values
+   */
 
   return true;
   //}

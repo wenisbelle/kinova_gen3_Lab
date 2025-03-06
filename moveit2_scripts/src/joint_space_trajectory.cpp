@@ -82,7 +82,7 @@ public:
     RCLCPP_INFO(LOGGER, "Planning Joint Value Trajectory...");
     plan_trajectory_kinematics();
     RCLCPP_INFO(LOGGER, "Executing Joint Value Trajectory...");
-    execute_trajectory_kinematics();
+    //execute_trajectory_kinematics();
 
     RCLCPP_INFO(LOGGER, "Joint Space Trajectory Planning Complete");
   }

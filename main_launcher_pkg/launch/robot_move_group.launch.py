@@ -196,6 +196,7 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "robot_ip",
+            default_value="192.168.1.10",
             description="IP address by which the robot can be reached.",
         )
     )
@@ -209,14 +210,14 @@ def generate_launch_description():
     declared_arguments.append(
         DeclareLaunchArgument(
             "gripper_max_velocity",
-            default_value="100.0",
+            default_value="10.0",
             description="Max velocity for gripper commands",
         )
     )
     declared_arguments.append(
         DeclareLaunchArgument(
             "gripper_max_force",
-            default_value="100.0",
+            default_value="1.0",
             description="Max force for gripper commands",
         )
     )
